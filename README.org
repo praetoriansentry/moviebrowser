@@ -12,4 +12,21 @@
 #+LATEX_HEADER: \geometry{left=1in,right=1in,top=1in,bottom=1in}
 #+LaTeX_CLASS_OPTIONS: [letterpaper]
 
-* Movie Browser Example
+This is a basic example web application written using going. It should
+be fully functional. The only things needed to make it run would be
+the ~movie.db~ file and a [[github.com/mattn/go-sqlite3][SQLite]] implementation.
+
+** File Structure
+
+*** Data
+*** Gateways
+*** Handlers
+*** Objects
+*** Static
+*** Templates
+
+** Front End Frameworks
+
+- jquery
+- boostrap
+- typeahead
