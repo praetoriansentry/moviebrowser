@@ -1,0 +1,90 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="/movie/{{ .movie.Ssid }}/image">
+        </div>
+        <div class="col-md-8">
+            <h1> {{ .movie.Title }}</h1>
+
+            <h3> Movie Details </h3>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td> Director </td>
+                        <td> {{.movie.Director}}</td>
+                    </tr>
+                    <tr>
+                        <td> Language </td>
+                        <td> {{.movie.Language}}</td>
+                    </tr>
+                    <tr>
+                        <td> Year </td>
+                        <td> {{.movie.Year}}</td>
+                    </tr>
+                    <tr>
+                        <td> Genre </td>
+                        <td> {{.movie.Genre}}</td>
+                    </tr>
+                    <tr>
+                        <td> Runtime </td>
+                        <td> {{.movie.Runtime}}</td>
+                    </tr>
+                    <tr>
+                        <td> Imdb Rating </td>
+                        <td> {{.movie.ImdbRating}}</td>
+                    </tr>
+                    <tr>
+                        <td> Imdb Votes </td>
+                        <td> {{.movie.ImdbVotes}}</td>
+                    </tr>
+                    <tr>
+                        <td> Imdb Page </td>
+                        <td> <a href="http://www.imdb.com/title/{{.movie.ImdbId}}">imdb.com/title/{{.movie.ImdbId}}</a> </td>
+                    </tr>
+                    <tr>
+                        <td> BFI Page </td>
+                        <td> <a href="http://explore.bfi.org.uk/sightandsoundpolls/2012/film/{{.movie.Ssid}}">explore.bfi.org.uk/sightandsoundpolls/2012/film/{{.movie.Ssid}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <h2> Who voted for this </h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th> Voter Name </th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range .voters}}
+            <tr>
+                <td> <a href="/voter/{{.Ssid}}">{{.Name}}</a> </td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+    <h2> Voters Also Liked </h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th> Movie Name </th>
+                <th> Director </th>
+                <th> Year </th>
+                <th> Imdb Rating </th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range .similar}}
+            <tr>
+                <td> <a href="/movie/{{.Ssid}}">{{.Title}}</a> </td>
+                <td> {{.Director}} </td>
+                <td> {{.Year}} </td>
+                <td> {{.ImdbRating}} </td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+</div>
+

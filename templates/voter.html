@@ -1,0 +1,25 @@
+<div class="container">
+    <h1> {{ .voter.Name }} </h1>
+    <a href="http://explore.bfi.org.uk/sightandsoundpolls/2012/voter/{{.voter.Ssid}}">BFI Page</a>
+    <h2> Votes </h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th> Movie Name </th>
+                <th> Director </th>
+                <th> Year </th>
+                <th> Imdb Rating </th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range .movies}}
+            <tr>
+                <td> <a href="/movie/{{.Ssid}}">{{.Title}}</a> </td>
+                <td> {{.Director}} </td>
+                <td> {{.Year}} </td>
+                <td> {{.ImdbRating}} </td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+</div>
