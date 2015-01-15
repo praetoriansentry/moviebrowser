@@ -12,21 +12,73 @@
 #+LATEX_HEADER: \geometry{left=1in,right=1in,top=1in,bottom=1in}
 #+LaTeX_CLASS_OPTIONS: [letterpaper]
 
-This is a basic example web application written using going. It should
+This is a basic example web application written using [[http://www.golang.org][Golang]]. It should
 be fully functional. The only things needed to make it run would be
-the ~movie.db~ file and a [[github.com/mattn/go-sqlite3][SQLite]] implementation.
+the ~movie.db~ file and a [[http://github.com/mattn/go-sqlite3][SQLite]] implementation.
 
 ** File Structure
 
+The root level folder for this application contains
+~moviebrowser.go~. This file contains the main method and is the entry
+point for the server. That file starts the server and also specifies
+all of the routes for this application.
+
+This application is basic enough that I didn't need to define a custom
+[[http://golang.org/pkg/net/http/#ServeMux][ServeMux]].
+
 *** Data
+The data package contains a very simple wrapper around the database
+connection. It's nice to have a central way to open SQL
+connections. In a more complicated application, it might make sense to
+add more functionality to this package.
+
 *** Gateways
+The gateways are supposed to have packages that allow you to access a
+particular table. I probably deviated away from that pattern a little
+bit. Basically all of the SQL queries for the application are in the
+gateway package.
+
 *** Handlers
+The Http server maps requests to the handlers Package. All of the
+exported functions from the handlers package are meant process HTTP
+requests.
+
 *** Objects
+The objects folder contains all the structs that are passed around in
+this application. Because this is a basic application there are only
+two: movies and voters.
+
+In a more complicated application, there are a lot of global structs
+so it's nice to have they grouped together.
+
 *** Static
+The static folder is used to host standard static assets for a web
+application:
+- CSS
+- JS
+- Images
+
+The http server is configured to look in that directory when it
+starts.
+
 *** Templates
+
+I store all of the [[http://golang.org/pkg/html/template/][html/template]]s in this folder. The function
+~sendResponse~ looks in this folder when processing a request for a
+particular handler.
 
 ** Front End Frameworks
 
-- jquery
-- boostrap
-- typeahead
+- [[http://jquery.com/][jQuery]]
+- [[http://getbootstrap.com/][Boostrap]]
+- [[https://twitter.github.io/typeahead.js/][typeahead.js]]
+
+** Building and Running
+
+In order to build the application and run it, I run the following two
+commands:
+
+#+BEGIN_SRC bash
+go build moviebrowser.go
+./moviebrowser
+#+END_SRC
