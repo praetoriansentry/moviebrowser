@@ -12,6 +12,8 @@ func Voter(rw http.ResponseWriter, rq *http.Request) {
 	log.Println("Executing the voter handler")
 	pathParts := strings.Split(rq.URL.Path, "/")
 
+	// Manually parsing. If this were a bigger application, it might
+	// make sense to do something less hacky
 	if len(pathParts) < 3 {
 		http.NotFound(rw, rq)
 		return

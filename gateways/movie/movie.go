@@ -19,6 +19,7 @@ func GetMovie(movieId string) *objects.Movie {
 	return rowToMovie(rows)
 }
 
+// Maybe I'll use this in the next version
 func UpdateImdbId(movieId string, imdbId string) bool {
 	e := data.GetQueryEngine()
 	_, err := e.Exec("update movie set imdbid = ? where ssid = ?;", imdbId, movieId)
@@ -31,6 +32,7 @@ func UpdateImdbId(movieId string, imdbId string) bool {
 	return true
 
 }
+
 func GetAllMovieSummary() []*objects.Movie {
 
 	e := data.GetQueryEngine()
@@ -126,6 +128,7 @@ func rowToMovie(row *sql.Rows) *objects.Movie {
 	return nil
 }
 
+// Convert a SQL row object into a movie object
 func scanMovie(row *sql.Rows) *objects.Movie {
 	movie := new(objects.Movie)
 	err := row.Scan(

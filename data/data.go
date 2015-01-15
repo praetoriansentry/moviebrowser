@@ -16,6 +16,8 @@ var (
 	currentConnection *queryEngine
 )
 
+// If the connection has already been created we return it. Otherwise
+// we allocate a new queryEngin and connect to the database
 func GetQueryEngine() *queryEngine {
 	if currentConnection != nil {
 		return currentConnection
@@ -39,6 +41,9 @@ func (q queryEngine) getDb() *sql.DB {
 	return db
 }
 
+// These are very basic functions, but it establishes a pattern that I
+// would want to keep. The connect itself is hidden. This would allow
+// us to manage multiple connects or do connection pooling more easily
 func (q queryEngine) Query(query string, args ...interface{}) (*sql.Rows, error) {
 	return q.db.Query(query, args...)
 }

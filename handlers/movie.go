@@ -11,9 +11,13 @@ import (
 
 func Movie(rw http.ResponseWriter, rq *http.Request) {
 	log.Println("Executing the movie handler")
+	// Here I'm manually parsing the url and grabbing the various
+	// parts. There are libraries that do a better job of this,
+	// but if you are doing something really basic, this is fine
 	pathParts := strings.Split(rq.URL.Path, "/")
 	pathPartCount := len(pathParts)
 	if pathPartCount < 3 {
+		// Convenient...
 		http.NotFound(rw, rq)
 	}
 	movieId := pathParts[2]
@@ -22,11 +26,14 @@ func Movie(rw http.ResponseWriter, rq *http.Request) {
 		getMovieImage(rw, rq, movieId)
 		return
 	}
+
 	currentMovie := movie.GetMovie(movieId)
 	if currentMovie == nil {
 		http.NotFound(rw, rq)
 		return
 	}
+	// Fetch all the data and prepare it for transformation with
+	// the templates.
 	movieData := make(map[string]interface{})
 	movieData["voters"] = voter.GetVotersForMovie(movieId)
 	movieData["similar"] = movie.GetSimilarMovies(movieId)
@@ -34,12 +41,18 @@ func Movie(rw http.ResponseWriter, rq *http.Request) {
 
 	sendResponse(rw, rq, "movie", movieData)
 }
+
+// This is handler is for the autocomplete list
 func MovieJson(rw http.ResponseWriter, rq *http.Request) {
 	log.Println("Executing the movie json handler")
 	movieList := movie.GetAllMovieSummary()
 	marshalToJsonAndSend(rw, movieList)
 }
 
+// If a movie image is request, we look that up and retrieve it
+// directly. Proxying is necessary because the IMDb server won't allow
+// image requests with unrecognized referrers. I've added cache
+// headers (hopefully correct) to help offset the load.
 func getMovieImage(rw http.ResponseWriter, rq *http.Request, movieId string) {
 	log.Printf("Getting image for movie %s", movieId)
 	movie := movie.GetMovie(movieId)

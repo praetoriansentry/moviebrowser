@@ -16,6 +16,9 @@ This is a basic example web application written using [[http://www.golang.org][G
 be fully functional. The only things needed to make it run would be
 the ~movie.db~ file and a [[http://github.com/mattn/go-sqlite3][SQLite]] implementation.
 
+*Note* this is just example code. It probably has some bad practices
+and mistakes.
+
 ** File Structure
 
 The root level folder for this application contains
