@@ -16,7 +16,7 @@ $(function () {
         displayKey: 'RawTitle',
         source: movies.ttAdapter(),
         templates: {
-            empty: 'No movies found!',
+            empty: '<p style="padding:10px;">No movies found!</p>',
             suggestion: function (movie) {
                 return '<img width="50" src="/movie/' + movie.Ssid + '/image"> ' + movie.RawTitle;
             }
